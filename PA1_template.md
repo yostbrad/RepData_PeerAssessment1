@@ -1,5 +1,6 @@
 
-```{r,echo=TRUE}
+
+```r
 ##setup packages
 library(dplyr)
 library(ggplot2)
@@ -13,20 +14,25 @@ steps_per_day<-aggregate(steps ~ date, data = activity,
                          FUN = sum, na.rm = TRUE)
 ```
 
-```{r fig.width=10, fig.height=6,echo=TRUE}
+
+```r
 ##plot histogram
 hist(steps_per_day$steps,xlab="Steps per day",
      main="Number of steps taken per day")
 ```
 
-```{r,echo=TRUE}
+![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png)
+
+
+```r
 ##find mean and median per day
 mean_per_day<-format(mean(steps_per_day$steps), digits=1)
 median_per_day<-format(median(steps_per_day$steps), digits=1)
 ```
-The mean and median of total number of steps taken per day are `r mean_per_day` and median_per_day` respectively.
+The mean and median of total number of steps taken per day are 10766 and median_per_day` respectively.
 
-```{r fig.width=10, fig.height=6,echo=TRUE}
+
+```r
 ##time series of activity
 activity_steps_mean <- aggregate(steps ~ interval, data = activity,
                                  FUN = mean, na.rm = TRUE)
@@ -36,24 +42,30 @@ plot(activity_steps_mean$interval, activity_steps_mean$steps,
      main = "Average number of steps per interval
      (NA removed)")
 ```
-```{r,echo=TRUE}
+
+![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png)
+
+```r
 max_num_steps<-max(activity_steps_mean$steps)
 ```
-The interval which has the maximum no. of average steps is `r max_num_steps`.
+The interval which has the maximum no. of average steps is 206.1698113.
 
-```{r,echo=TRUE}
+
+```r
 ##interpreting missing values
 total_missing<-sum(is.na(activity))
 ```
-The number of missing values is `r total_missing`.
+The number of missing values is 2304.
 
-```{r,echo=TRUE}
+
+```r
 #filling in missing values
 #subset the missing values
 missing_values<-subset(activity,is.na(activity$steps))
 ```
 
-```{r fig.width=10, fig.height=6,echo=TRUE}
+
+```r
 #parition NAs by date and by interval to determine 
 #how to account the NAs
 par(mfrow = c(2,1), mar = c(2, 2, 1, 1))
@@ -63,7 +75,10 @@ hist(as.numeric(missing_values$date),
      main = "NAs repartion per date", breaks = 61)
 ```
 
-```{r,echo=TRUE}
+![plot of chunk unnamed-chunk-8](figure/unnamed-chunk-8-1.png)
+
+
+```r
 #create new dataset filling in NAs
 #use mean of steps per interval
 mean_per_interval <- tapply(activity$steps, activity$interval, 
@@ -72,7 +87,8 @@ mean_per_interval <- tapply(activity$steps, activity$interval,
 activity_w_NAs <- activity[is.na(activity$steps),]
 activity_wo_NAs <- activity[!is.na(activity$steps),]
 ```
-```{r,echo=TRUE}
+
+```r
 #replace missing values
 activity_w_NAs$steps <- as.factor(activity_w_NAs$interval)
 levels(activity_w_NAs$steps) <- mean_per_interval
@@ -86,7 +102,8 @@ activity_w_NAs$steps <-
 impute_activity <- rbind(activity_w_NAs, activity_wo_NAs)
 ```
 
-```{r fig.width=10, fig.height=6,echo=TRUE}
+
+```r
 #histogram of new dataset
 par(mfrow = c(1,2))
 activity_steps_day <- aggregate(steps ~ date, data = activity, 
@@ -101,15 +118,19 @@ hist(imp_activity_steps_day$steps,
      main = "NAs IMPUTED - Total steps/day")
 ```
 
-```{r,echo=TRUE}
+![plot of chunk unnamed-chunk-11](figure/unnamed-chunk-11-1.png)
+
+
+```r
 #find mean and median
 mean_imp<-format(mean(imp_activity_steps_day$steps),digits=1)
 median_imp<-format(median(imp_activity_steps_day$steps),digits=1)
 ```
 
-The mean and median of total number of steps taken per day in the new data (after imputing missing values) are `r mean_imp` and `r median_imp` respectively.
+The mean and median of total number of steps taken per day in the new data (after imputing missing values) are 10766 and 10762 respectively.
 
-```{r,echo=TRUE}
+
+```r
 ##difference between weekdays and weekends
 #use imputed activity and split by weekend 
 impute_activity$dayType <- ifelse(weekdays(as.Date(impute_activity$date)) == "Saturday" |
@@ -122,10 +143,13 @@ steps_interval_dayType <- aggregate(steps ~ interval + dayType,
                                     data = impute_activity, FUN = mean)
 ```
 
-```{r fig.width=10, fig.height=6,echo=TRUE}
+
+```r
 #plot using ggplot
 day_type_plot <- ggplot(steps_interval_dayType, aes(interval, steps))+
   geom_line() + facet_grid(dayType~.)
 plot(day_type_plot)
 ```
+
+![plot of chunk unnamed-chunk-14](figure/unnamed-chunk-14-1.png)
 
