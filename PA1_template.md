@@ -161,7 +161,7 @@ hist(imp_activity_steps_day$steps,
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
-![](Steps_NA_removed.png)
+![](Impute_and_Not.png)
 
 ```r
 #find mean and median
