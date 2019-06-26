@@ -83,6 +83,7 @@ plot(activity_steps_mean$interval, activity_steps_mean$steps,
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
+![](Steps_per_interval.png)
 
 ```r
 max_num_steps<-max(activity_steps_mean$steps)
@@ -115,6 +116,7 @@ hist(as.numeric(missing_values$date),
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
+![](hist_with_missing.png)
 
 
 ```r
@@ -152,13 +154,14 @@ hist(activity_steps_day$steps, xlab = "Steps per Day",
 imp_activity_steps_day <- aggregate(steps ~ date, 
                                     data = impute_activity,
                                     FUN = sum, na.rm = TRUE)
+
 hist(imp_activity_steps_day$steps, 
      xlab = "Steps per Day", 
      main = "NAs IMPUTED - Total steps/day")
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
-
+![](Steps_NA_removed.png)
 
 ```r
 #find mean and median
@@ -191,4 +194,4 @@ plot(day_type_plot)
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-14-1.png)<!-- -->
-
+![](day_type_plot.png)
