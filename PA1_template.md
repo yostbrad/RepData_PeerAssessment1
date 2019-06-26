@@ -1,10 +1,48 @@
+---
+title: "Reproducible Research: Peer Assessment 1"
+author: "Brad Yoat"
+date: "06-26-19"
+output: 
+  html_document:
+    keep_md: true
+---
 
 
 ```r
 ##setup packages
 library(dplyr)
-library(ggplot2)
+```
 
+```
+## Warning: package 'dplyr' was built under R version 3.5.3
+```
+
+```
+## 
+## Attaching package: 'dplyr'
+```
+
+```
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+```
+
+```
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+```
+
+```r
+library(ggplot2)
+```
+
+```
+## Warning: package 'ggplot2' was built under R version 3.5.3
+```
+
+```r
 ##load data
 activity<-read.csv("activity.csv")
 
@@ -21,7 +59,7 @@ hist(steps_per_day$steps,xlab="Steps per day",
      main="Number of steps taken per day")
 ```
 
-![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png)
+![](PA1_template_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
 
 
 ```r
@@ -43,7 +81,7 @@ plot(activity_steps_mean$interval, activity_steps_mean$steps,
      (NA removed)")
 ```
 
-![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png)
+![](PA1_template_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
 
 ```r
 max_num_steps<-max(activity_steps_mean$steps)
@@ -75,7 +113,7 @@ hist(as.numeric(missing_values$date),
      main = "NAs repartion per date", breaks = 61)
 ```
 
-![plot of chunk unnamed-chunk-8](figure/unnamed-chunk-8-1.png)
+![](PA1_template_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
 
 
 ```r
@@ -118,7 +156,7 @@ hist(imp_activity_steps_day$steps,
      main = "NAs IMPUTED - Total steps/day")
 ```
 
-![plot of chunk unnamed-chunk-11](figure/unnamed-chunk-11-1.png)
+![](PA1_template_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
 
 
 ```r
@@ -151,5 +189,5 @@ day_type_plot <- ggplot(steps_interval_dayType, aes(interval, steps))+
 plot(day_type_plot)
 ```
 
-![plot of chunk unnamed-chunk-14](figure/unnamed-chunk-14-1.png)
+![](PA1_template_files/figure-html/unnamed-chunk-14-1.png)<!-- -->
 
