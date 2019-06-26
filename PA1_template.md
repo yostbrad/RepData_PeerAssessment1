@@ -60,6 +60,7 @@ hist(steps_per_day$steps,xlab="Steps per day",
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
+![](Steps_per_day.png)
 
 
 ```r
